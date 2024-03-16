@@ -1,0 +1,18 @@
+.example-full-width {
+  width: 50%;
+  margin-right: 10px;
+}
+
+.btn-search{
+  border-radius: 10px;
+  background-color: #004a93;
+  color: aliceblue;
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+.btn-search:hover{
+  border: 1px solid #004a93;
+  background-color: transparent;
+  color: #004a93;
+}
