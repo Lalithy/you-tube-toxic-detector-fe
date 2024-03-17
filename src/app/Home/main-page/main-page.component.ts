@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ToxicService} from "../../Services/toxic.service";
 
 declare var YT: any;
 
@@ -14,6 +15,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   videoId: string = '';
   private player: any;
   private interval: any;
+  isLoading: boolean = false;
+  timeListObj: any;
+
+  constructor(private toxicService: ToxicService) {
+  }
 
   ngOnInit(): void {
     this.loadYoutubeIframeApi();
@@ -23,8 +29,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     clearInterval(this.interval);
   }
 
-    extractVideoId(url: string): string {
 
+  extractVideoId(url: string): string {
     const regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})$/;
     const match = url.match(regex);
 
@@ -36,24 +42,56 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  async fetchData(videoId: string) {
+    try {
+      this.timeListObj = await this.getTimeOfToxic(videoId);
+      console.log(this.timeListObj);
+      this.initializePlayer();
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getTimeOfToxic(videoId: string) {
+    return new Promise((resolve, reject) => {
+      this.toxicService
+        .getToxicTime(videoId)
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  // fetchData(videoId: string): void {
+  //   this.toxicService.getToxicTime(videoId).subscribe(data => {
+  //     console.log('Toxic Time',data);
+  //   });
+  // }
+
   setYouTubeValues(url: string) {
+    this.isLoading = true;
     console.log('Pass 1');
     this.videoId = this.extractVideoId(url);
 
+    this.fetchData(this.videoId);
+
     console.log('this.videoId 1', this.videoId);
-    this.initializePlayer();
+
 
   }
 
   private loadYoutubeIframeApi(): void {
-    // Create a script element
     const scriptTag = document.createElement('script');
     scriptTag.src = 'https://www.youtube.com/iframe_api';
 
-    // Append the script to the document body
     document.body.appendChild(scriptTag);
 
-    // Define a callback function to initialize the player
     (window as any)['onYouTubeIframeAPIReady'] = () => {
       this.initializePlayer();
     };
@@ -61,7 +99,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   private initializePlayer(): void {
     console.log('this.videoId 2', this.videoId);
-    if (this.videoId &&  this.playerContainer) {
+    if (this.videoId && this.playerContainer && this.timeListObj) {
+      this.isLoading = false;
       this.player = new YT.Player(this.playerContainer.nativeElement, {
         height: '360',
         width: '640',
@@ -69,6 +108,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         playerVars: {
           autoplay: 1,
           controls: 1,
+          cc_load_policy: 0,
           mute: 0,
         },
         events: {
@@ -88,15 +128,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private onPlayerStateChange(event: any): void {
     if (event.data === YT.PlayerState.PLAYING) {
       this.interval = setInterval(() => {
-        if (this.player) {
+        if (this.player && this.timeListObj && this.timeListObj.muted_segments) {
+
           const currentTime = this.player.getCurrentTime();
           let mute = false;
-          const mutedSegments = [
-            [2, 10],
-            [12, 20],
-            [20, 30],
-            [50, 55]
-          ];
+          const mutedSegments = this.timeListObj.muted_segments;
           for (let i = 0; i < mutedSegments.length; i++) {
             const segment = mutedSegments[i];
             if (currentTime >= segment[0] && currentTime <= segment[1]) {
@@ -113,4 +149,34 @@ export class MainPageComponent implements OnInit, OnDestroy {
       }, 1000);
     }
   }
+
+
+  // private onPlayerStateChange(event: any): void {
+  //   if (event.data === YT.PlayerState.PLAYING) {
+  //     this.interval = setInterval(() => {
+  //       if (this.player) {
+  //         const currentTime = this.player.getCurrentTime();
+  //         let mute = false;
+  //         const mutedSegments = [
+  //           [2, 10],
+  //           [12, 20],
+  //           [20, 30],
+  //           [50, 55]
+  //         ];
+  //         for (let i = 0; i < mutedSegments.length; i++) {
+  //           const segment = mutedSegments[i];
+  //           if (currentTime >= segment[0] && currentTime <= segment[1]) {
+  //             mute = true;
+  //             break;
+  //           }
+  //         }
+  //         if (mute) {
+  //           this.player.mute();
+  //         } else {
+  //           this.player.unMute();
+  //         }
+  //       }
+  //     }, 1000);
+  //   }
+  // }
 }

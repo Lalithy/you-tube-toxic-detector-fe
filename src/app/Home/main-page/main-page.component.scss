@@ -1,20 +1,28 @@
 .example-full-width {
   width: 50%;
+  height: 68px;
+  border-radius: 10px;
   margin-right: 10px;
 }
 
-.btn-search{
+.btn-search {
+  height: 45px;
+  color: aliceblue;
   border-radius: 10px;
   background-color: #004a93;
-  color: aliceblue;
-  padding-left: 28px;
-  padding-right: 28px;
 }
 
-.btn-search:hover{
+.btn-search:hover {
+  height: 45px;
+  color: #004a93;
   border: 1px solid #004a93;
   background-color: transparent;
-  color: #004a93;
 }
+
+.icon-search{
+  font-size: 25px !important;
+  font-weight: bold;
+}
+
 
 

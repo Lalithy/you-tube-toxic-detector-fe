@@ -13,7 +13,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {YouTubePlayer, YouTubePlayerModule} from '@angular/youtube-player';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import {YouTubePlayer, YouTubePlayerModule} from '@angular/youtube-player';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    YouTubePlayerModule
+    MatProgressBarModule,
+    YouTubePlayerModule,
+    HttpClientModule
 
   ],
   providers: [],
