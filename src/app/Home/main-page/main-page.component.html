@@ -3,18 +3,18 @@
   <div class="row mt-5">
     <div class="col-12 d-flex justify-content-center">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Enter URL" >
+        <input matInput placeholder="Enter URL" #urlInput>
       </mat-form-field>
 
-      <button mat-button  class="btn-search d-flex align-items-center" color="accent">
+      <button mat-button class="btn-search d-flex align-items-center" color="accent" (click)="setYouTubeValues(urlInput.value)">
         <mat-icon>search</mat-icon>
       </button>
     </div>
   </div>
 
   <div class="row mt-5">
-
     <div class="col-12 d-flex justify-content-center">
+      <youtube-player [videoId]="videoId"></youtube-player>
     </div>
 
   </div>
