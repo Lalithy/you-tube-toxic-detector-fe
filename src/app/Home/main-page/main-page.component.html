@@ -6,7 +6,8 @@
         <input matInput placeholder="Enter URL" #urlInput>
       </mat-form-field>
 
-      <button mat-button class="btn-search d-flex align-items-center" color="accent" (click)="setYouTubeValues(urlInput.value)">
+      <button mat-button class="btn-search d-flex align-items-center" color="accent"
+              (click)="setYouTubeValues(urlInput.value)">
         <mat-icon>search</mat-icon>
       </button>
     </div>
@@ -14,9 +15,8 @@
 
   <div class="row mt-5">
     <div class="col-12 d-flex justify-content-center">
-      <youtube-player [videoId]="videoId"></youtube-player>
+      <div #player></div>
     </div>
-
   </div>
 
 
