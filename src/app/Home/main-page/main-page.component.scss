@@ -1,5 +1,5 @@
 .example-full-width {
-  width: 50%;
+  width: 40%;
   height: 68px;
   border-radius: 10px;
   margin-right: 10px;
@@ -9,19 +9,18 @@
   height: 45px;
   color: aliceblue;
   border-radius: 10px;
-  background-color: #004a93;
+  background-color: cornflowerblue;
 }
 
 .btn-search:hover {
   height: 45px;
-  color: #004a93;
-  border: 1px solid #004a93;
   background-color: transparent;
+  border: 1px solid cornflowerblue;
 }
 
 .icon-search{
-  font-size: 25px !important;
   font-weight: bold;
+  font-size: 25px !important;
 }
 
 

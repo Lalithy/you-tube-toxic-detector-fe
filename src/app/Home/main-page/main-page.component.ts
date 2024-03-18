@@ -108,8 +108,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
         playerVars: {
           autoplay: 1,
           controls: 1,
-          cc_load_policy: 0,
           mute: 0,
+          rel: 0,
+          cc_load_policy: 0,
         },
         events: {
           onReady: () => this.onPlayerReady(),
