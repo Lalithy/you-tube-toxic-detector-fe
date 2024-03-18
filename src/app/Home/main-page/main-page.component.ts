@@ -1,5 +1,14 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ToxicService} from "../../Services/toxic.service";
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogTitle,
+  MatDialogContent,
+} from '@angular/material/dialog';
+import {InformationPageComponent} from "../information-page/information-page.component";
 
 declare var YT: any;
 
@@ -13,12 +22,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
   @ViewChild('player') playerContainer!: ElementRef;
 
   videoId: string = '';
-  private player: any;
-  private interval: any;
+  player: any;
+  interval: any;
   isLoading: boolean = false;
   timeListObj: any;
+  isButtonVisible: boolean = false;
 
-  constructor(private toxicService: ToxicService) {
+  constructor(private toxicService: ToxicService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -45,7 +56,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   async fetchData(videoId: string) {
     try {
       this.timeListObj = await this.getTimeOfToxic(videoId);
-      console.log(this.timeListObj);
+     // console.log('Toxic Time: ',this.timeListObj);
       this.initializePlayer();
 
     } catch (error) {
@@ -79,11 +90,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
     console.log('Pass 1');
     this.videoId = this.extractVideoId(url);
 
-    this.fetchData(this.videoId);
-
-    console.log('this.videoId 1', this.videoId);
-
-
+    if(this.videoId){
+      localStorage.setItem('videoId', this.videoId);
+      this.fetchData(this.videoId);
+    }
   }
 
   private loadYoutubeIframeApi(): void {
@@ -101,6 +111,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     console.log('this.videoId 2', this.videoId);
     if (this.videoId && this.playerContainer && this.timeListObj) {
       this.isLoading = false;
+      this.isButtonVisible = true;
+
       this.player = new YT.Player(this.playerContainer.nativeElement, {
         height: '360',
         width: '640',
@@ -151,6 +163,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  openDialog(): void {
+    this.dialog.open(InformationPageComponent, {
+      width: '800px',
+      height: 'auto',
+      data: { videoId: this.videoId }
+    });
+  }
 
   // private onPlayerStateChange(event: any): void {
   //   if (event.data === YT.PlayerState.PLAYING) {

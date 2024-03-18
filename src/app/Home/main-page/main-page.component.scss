@@ -1,13 +1,14 @@
 .example-full-width {
   width: 40%;
   height: 68px;
-  border-radius: 10px;
   margin-right: 10px;
+  border-radius: 10px;
 }
 
 .btn-search {
   height: 45px;
   color: aliceblue;
+  margin-right: 10px;
   border-radius: 10px;
   background-color: cornflowerblue;
 }
@@ -21,6 +22,19 @@
 .icon-search{
   font-weight: bold;
   font-size: 25px !important;
+}
+
+.btn-verify{
+  height: 45px;
+  color: aliceblue;
+  border-radius: 10px;
+  background-color: bisque;
+}
+
+.btn-verify:hover{
+  height: 45px;
+  border: 1px solid bisque;
+  background-color: transparent;
 }
 
 

@@ -16,7 +16,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {YouTubePlayer, YouTubePlayerModule} from '@angular/youtube-player';
 import { HttpClientModule } from '@angular/common/http';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -37,8 +39,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatProgressBarModule,
     YouTubePlayerModule,
-    HttpClientModule
-
+    HttpClientModule,
+    MatDialogModule,
+    MatDividerModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

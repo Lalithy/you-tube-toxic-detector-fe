@@ -10,6 +10,12 @@
               (click)="setYouTubeValues(urlInput.value)">
         <mat-icon class="icon-search">search</mat-icon>
       </button>
+
+
+      <button mat-button class="btn-verify d-flex align-items-center" *ngIf="isButtonVisible"
+              (click)="openDialog();">
+        Verify Information
+      </button>
     </div>
   </div>
 

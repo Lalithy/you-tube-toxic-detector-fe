@@ -22,6 +22,8 @@
     "@angular/router": "^16.2.0",
     "@angular/youtube-player": "^16.2.14",
     "bootstrap": "^5.3.3",
+    "highcharts": "^11.4.0",
+    "highcharts-angular": "^4.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
