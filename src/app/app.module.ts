@@ -19,12 +19,15 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { ValidationComponent } from './utilz/validation/validation/validation.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     InformationPageComponent,
-    MainPageComponent
+    MainPageComponent,
+    ValidationComponent
   ],
   imports: [
     BrowserModule,

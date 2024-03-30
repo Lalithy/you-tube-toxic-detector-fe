@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {ToxicService} from "../../Services/toxic.service";
 import {MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {showWarningMessage} from "../../utilz/validation/validation/validation.component";
 
 @Component({
   selector: 'app-information-page',
@@ -33,6 +34,7 @@ export class InformationPageComponent implements OnInit {
       this.pieChart = this.generatePieChart(this.chartListObj);
 
     } catch (error) {
+      showWarningMessage('Cannot access video');
       console.error(error);
     }
   }
@@ -95,9 +97,9 @@ export class InformationPageComponent implements OnInit {
       series: [{
         name: 'Sentiment',
         data: [
-          { name: 'Positive', y: chartData.positive },
-          { name: 'Negative', y: chartData.negative },
-          { name: 'Neutral', y: chartData.neutral }
+          { name: 'True Information', y: chartData.positive },
+          { name: 'False Information', y: chartData.negative },
+          { name: 'Neutral Information', y: chartData.neutral }
         ]
       }]
     };

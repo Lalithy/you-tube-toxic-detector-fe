@@ -9,6 +9,7 @@ import {
   MatDialogContent,
 } from '@angular/material/dialog';
 import {InformationPageComponent} from "../information-page/information-page.component";
+import {showErrorMessage, showWarningMessage} from "../../utilz/validation/validation/validation.component";
 
 declare var YT: any;
 
@@ -20,6 +21,8 @@ declare var YT: any;
 export class MainPageComponent implements OnInit, OnDestroy {
 
   @ViewChild('player') playerContainer!: ElementRef;
+  @ViewChild('urlInput', { static: true }) urlInput!: ElementRef;
+
 
   videoId: string = '';
   player: any;
@@ -60,6 +63,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.initializePlayer();
 
     } catch (error) {
+      showWarningMessage('Cannot access video');
+      this.urlInput.nativeElement.value = '';
+      this.isLoading = false;
       console.error(error);
     }
   }
@@ -92,6 +98,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     if(this.videoId){
       localStorage.setItem('videoId', this.videoId);
+      if (this.player) {
+
+        this.player.stopVideo();
+        this.player.destroy();
+        this.player = null;
+      }
+
       this.fetchData(this.videoId);
     }
   }
@@ -164,6 +177,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
+
+    if (this.player) {
+      this.player.stopVideo();
+    }
+    
     this.dialog.open(InformationPageComponent, {
       width: '800px',
       height: 'auto',
