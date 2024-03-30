@@ -1,35 +1,43 @@
 <ng-container>
 
-  <div class="row mt-5">
-    <div class="col-12 d-flex justify-content-center">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Enter URL" #urlInput (keyup.enter)="setYouTubeValues(urlInput.value)"
-               (keyup)="handleKeyUp($event)">
-      </mat-form-field>
-
-      <button mat-button class="btn-search d-flex align-items-center" color="accent"
-              (click)="setYouTubeValues(urlInput.value)">
-        <mat-icon class="icon-search">search</mat-icon>
-      </button>
-
-      <button mat-button class="btn-verify d-flex align-items-center" *ngIf="isButtonVisible"
-              (click)="openDialog();">
-        Verify Information
-      </button>
-    </div>
+  <div class="background-image" *ngIf="isButtonVisible">
+    <img src="assets/Press%20pause.png" alt="image" class="image">
   </div>
 
-  <div class="row mt-5">
-    <div class="col-12 d-flex justify-content-center">
-      <mat-progress-bar mode="buffer" style="width: 55%" *ngIf="isLoading"></mat-progress-bar>
-    </div>
+  <!--  <div class="row mt-5">-->
+  <div class="col-12 d-flex justify-content-center">
+    <mat-form-field class="example-full-width mt-5">
+      <input matInput placeholder="Enter YouTube Video URL" #urlInput (keyup.enter)="setYouTubeValues(urlInput.value)"
+             (keyup)="handleKeyUp($event)">
+    </mat-form-field>
+
+    <button mat-button class="btn-search d-flex align-items-center mt-5"
+            (click)="setYouTubeValues(urlInput.value)">
+      <mat-icon class="icon-search">search</mat-icon>
+    </button>
   </div>
 
-  <div class="row mt-4">
-    <div class="col-12 d-flex justify-content-center">
-      <div #player></div>
-    </div>
+  <div class="col-12 d-flex justify-content-end">
+    <button mat-raised-button class="btn-verify d-flex align-items-center" *ngIf="isButtonVisible"
+            (click)="openDialog();"  matTooltip="Verify Information">
+      <img src="assets/pie-chart.png" alt="Button Image" class="btn-pie-image">
+    </button>
   </div>
+  <!--  <div class="col-12 d-flex justify-content-end">-->
+  <!--    <img src="assets/Press%20pause.png" alt="image" class="image">-->
+  <!--  </div>-->
+
+  <!--  <div class="row mt-5">-->
+  <div class="col-12 d-flex justify-content-center ">
+    <mat-spinner  style="width: 55%" *ngIf="isLoading"></mat-spinner>
+  </div>
+  <!--  </div>-->
+
+  <!--  <div class="row mt-4">-->
+  <div class="col-12 d-flex justify-content-center">
+    <div #player></div>
+  </div>
+  <!--  </div>-->
 
 
 </ng-container>

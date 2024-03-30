@@ -20,7 +20,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ValidationComponent } from './utilz/validation/validation/validation.component';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,9 @@ import { ValidationComponent } from './utilz/validation/validation/validation.co
     HttpClientModule,
     MatDialogModule,
     MatDividerModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

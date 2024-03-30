@@ -66,7 +66,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       showWarningMessage('This video cannot be accessed');
       this.urlInput.nativeElement.value = '';
       this.isLoading = false;
-      this.isButtonVisible = true;
+      this.isButtonVisible = false;
       console.error(error);
     }
   }
@@ -107,6 +107,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
       }
 
       this.fetchData(this.videoId);
+    } else {
+      this.isLoading = false;
+      showWarningMessage('Please Enter Video URL');
     }
   }
 
