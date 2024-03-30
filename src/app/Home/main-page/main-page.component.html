@@ -23,15 +23,22 @@
       <img src="assets/pie-chart.png" alt="Button Image" class="btn-pie-image">
     </button>
   </div>
-  <!--  <div class="col-12 d-flex justify-content-end">-->
-  <!--    <img src="assets/Press%20pause.png" alt="image" class="image">-->
-  <!--  </div>-->
 
-  <!--  <div class="row mt-5">-->
-  <div class="col-12 d-flex justify-content-center ">
-    <mat-spinner  style="width: 55%" *ngIf="isLoading"></mat-spinner>
+<!--  <div class="col-12 d-flex justify-content-center ">-->
+<!--    <mat-spinner  style="width: 55%" *ngIf="isLoading"></mat-spinner>-->
+<!--  </div>-->
+
+
+  <div class="col-12 d-flex justify-content-center">
+    <div class="loading-bubbles" *ngIf="isLoading">
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+    </div>
   </div>
-  <!--  </div>-->
+
+
 
   <!--  <div class="row mt-4">-->
   <div class="col-12 d-flex justify-content-center">
