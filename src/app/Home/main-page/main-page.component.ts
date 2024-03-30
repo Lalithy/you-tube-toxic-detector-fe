@@ -30,6 +30,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   timeListObj: any;
   isButtonVisible: boolean = false;
+  isWaterMark: boolean = true;
 
   constructor(private toxicService: ToxicService,
               public dialog: MatDialog) {
@@ -66,6 +67,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       showWarningMessage('This video cannot be accessed');
       this.urlInput.nativeElement.value = '';
       this.isLoading = false;
+      this.isWaterMark = true;
       this.isButtonVisible = false;
       console.error(error);
     }
@@ -94,6 +96,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   setYouTubeValues(url: string) {
     this.isLoading = true;
+    this.isWaterMark = false;
     console.log('Pass 1');
     this.videoId = this.extractVideoId(url);
 
@@ -199,6 +202,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.player.stopVideo();
         this.player.destroy();
         this.player = null;
+        this.isWaterMark = true;
         this.isButtonVisible = false;
       }
     }
