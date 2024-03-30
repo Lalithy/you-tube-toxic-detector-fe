@@ -3,7 +3,8 @@
   <div class="row mt-5">
     <div class="col-12 d-flex justify-content-center">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Enter URL" #urlInput (keyup.enter)="setYouTubeValues(urlInput.value)">
+        <input matInput placeholder="Enter URL" #urlInput (keyup.enter)="setYouTubeValues(urlInput.value)"
+               (keyup)="handleKeyUp($event)">
       </mat-form-field>
 
       <button mat-button class="btn-search d-flex align-items-center" color="accent"

@@ -16,7 +16,8 @@ export class InformationPageComponent implements OnInit {
   videoId: string = '';
 
   constructor(private toxicService: ToxicService,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<InformationPageComponent>) {
   //  this.pieChart = this.generatePieChart();
     this.videoId = data.videoId;
   }
@@ -34,7 +35,8 @@ export class InformationPageComponent implements OnInit {
       this.pieChart = this.generatePieChart(this.chartListObj);
 
     } catch (error) {
-      showWarningMessage('Cannot access video');
+      showWarningMessage('This video cannot be verified.');
+      this.dialogRef.close();
       console.error(error);
     }
   }
@@ -56,7 +58,7 @@ export class InformationPageComponent implements OnInit {
 
   generatePieChart(chartData: any) {
 
-    if (!chartData) {
+    if (!chartData || !chartData.positive || !chartData.negative || !chartData.neutral) {
       return {};
     }
 

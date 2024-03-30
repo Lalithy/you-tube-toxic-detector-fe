@@ -21,7 +21,7 @@ declare var YT: any;
 export class MainPageComponent implements OnInit, OnDestroy {
 
   @ViewChild('player') playerContainer!: ElementRef;
-  @ViewChild('urlInput', { static: true }) urlInput!: ElementRef;
+  @ViewChild('urlInput', {static: true}) urlInput!: ElementRef;
 
 
   videoId: string = '';
@@ -59,13 +59,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
   async fetchData(videoId: string) {
     try {
       this.timeListObj = await this.getTimeOfToxic(videoId);
-     // console.log('Toxic Time: ',this.timeListObj);
+      // console.log('Toxic Time: ',this.timeListObj);
       this.initializePlayer();
 
     } catch (error) {
-      showWarningMessage('Cannot access video');
+      showWarningMessage('This video cannot be accessed');
       this.urlInput.nativeElement.value = '';
       this.isLoading = false;
+      this.isButtonVisible = true;
       console.error(error);
     }
   }
@@ -96,7 +97,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     console.log('Pass 1');
     this.videoId = this.extractVideoId(url);
 
-    if(this.videoId){
+    if (this.videoId) {
       localStorage.setItem('videoId', this.videoId);
       if (this.player) {
 
@@ -181,40 +182,23 @@ export class MainPageComponent implements OnInit, OnDestroy {
     if (this.player) {
       this.player.stopVideo();
     }
-    
+
     this.dialog.open(InformationPageComponent, {
       width: '800px',
       height: 'auto',
-      data: { videoId: this.videoId }
+      data: {videoId: this.videoId}
     });
   }
 
-  // private onPlayerStateChange(event: any): void {
-  //   if (event.data === YT.PlayerState.PLAYING) {
-  //     this.interval = setInterval(() => {
-  //       if (this.player) {
-  //         const currentTime = this.player.getCurrentTime();
-  //         let mute = false;
-  //         const mutedSegments = [
-  //           [2, 10],
-  //           [12, 20],
-  //           [20, 30],
-  //           [50, 55]
-  //         ];
-  //         for (let i = 0; i < mutedSegments.length; i++) {
-  //           const segment = mutedSegments[i];
-  //           if (currentTime >= segment[0] && currentTime <= segment[1]) {
-  //             mute = true;
-  //             break;
-  //           }
-  //         }
-  //         if (mute) {
-  //           this.player.mute();
-  //         } else {
-  //           this.player.unMute();
-  //         }
-  //       }
-  //     }, 1000);
-  //   }
-  // }
+  handleKeyUp(event: KeyboardEvent) {
+    if (event.key === 'Backspace' && this.urlInput.nativeElement.value === '') {
+      if (this.player) {
+        this.player.stopVideo();
+        this.player.destroy();
+        this.player = null;
+        this.isButtonVisible = false;
+      }
+    }
+  }
+
 }
