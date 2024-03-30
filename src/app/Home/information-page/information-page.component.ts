@@ -58,7 +58,7 @@ export class InformationPageComponent implements OnInit {
 
   generatePieChart(chartData: any) {
 
-    if (!chartData || !chartData.positive || !chartData.negative || !chartData.neutral) {
+    if (!chartData) {
       return {};
     }
 
